@@ -22,6 +22,7 @@ NEW_CELL_WEIGHTS = {        # 2 is 9 times as likely to spawn as 4
 
 
 from random import choice
+from copy import deepcopy
 
 
 board = []
@@ -236,6 +237,8 @@ def main():
             print("L (LEFT) / R (RIGHT) / U (UP) / D (DOWN) / Q (QUIT)")
             print("")
 
+            previous_board = deepcopy(board)
+
             cmd = (input(":").upper() + " ")[0]
 
             if cmd == "Q":
@@ -253,8 +256,11 @@ def main():
             elif cmd == "R":
                 swipe(3)
 
-            for i in range(NEW_CELLS_PER_ROUND):
-                add_random_cell()
+            # make sure the move resulted in a change before adding new cells
+
+            if board != previous_board:
+                for i in range(NEW_CELLS_PER_ROUND):
+                    add_random_cell()
 
     except (KeyboardInterrupt, EOFError):
 
