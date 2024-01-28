@@ -217,50 +217,58 @@ def print_board():
     print("+------" * BOARD_WIDTH + "+")
 
 
+def game_start():
+
+    for i in range(NEW_CELLS_START):
+        add_random_cell()
+
+
+def game_loop():
+
+    print("")
+    print_board()
+    print("SCORE: " + str(score))
+    print("")
+
+    handle_state(get_state())
+
+    print("enter a command:")
+    print("L (LEFT) / R (RIGHT) / U (UP) / D (DOWN) / Q (QUIT)")
+    print("")
+
+    previous_board = deepcopy(board)
+
+    cmd = (input(":").upper() + " ")[0]
+
+    if cmd == "Q":
+        exit()
+
+    elif cmd == "U":
+        swipe(0)
+
+    elif cmd == "D":
+        swipe(1)
+
+    elif cmd == "L":
+        swipe(2)
+
+    elif cmd == "R":
+        swipe(3)
+
+    # make sure the move resulted in a change before adding new cells
+
+    if board != previous_board:
+        for i in range(NEW_CELLS_PER_ROUND):
+            add_random_cell()
+
 def main():
 
     try:
 
-        for i in range(NEW_CELLS_START):
-            add_random_cell()
+        game_start()
 
         while True:
-
-            print("")
-            print_board()
-            print("SCORE: " + str(score))
-            print("")
-
-            handle_state(get_state())
-
-            print("enter a command:")
-            print("L (LEFT) / R (RIGHT) / U (UP) / D (DOWN) / Q (QUIT)")
-            print("")
-
-            previous_board = deepcopy(board)
-
-            cmd = (input(":").upper() + " ")[0]
-
-            if cmd == "Q":
-                exit()
-
-            elif cmd == "U":
-                swipe(0)
-
-            elif cmd == "D":
-                swipe(1)
-
-            elif cmd == "L":
-                swipe(2)
-
-            elif cmd == "R":
-                swipe(3)
-
-            # make sure the move resulted in a change before adding new cells
-
-            if board != previous_board:
-                for i in range(NEW_CELLS_PER_ROUND):
-                    add_random_cell()
+            game_loop()
 
     except (KeyboardInterrupt, EOFError):
 
