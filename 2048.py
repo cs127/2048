@@ -203,7 +203,7 @@ def print_board():
 
         for cell in row:
             if cell:
-                print("| % 4d " % cell, end="")
+                print("|% 5d " % cell, end="")
             else:
                 print("|      ", end="")
 
