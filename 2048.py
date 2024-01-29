@@ -20,6 +20,8 @@ NEW_CELL_WEIGHTS = {        # 2 is 9 times as likely to spawn as 4
     4: 1
 }
 
+GOAL = 2048
+
 
 from random import choice
 from copy import deepcopy
@@ -143,7 +145,7 @@ def get_state():
     for row in board:
         for cell in row:
 
-            if cell == 2048:
+            if cell == GOAL:
                 return 1
 
     # otherwise, check if the player can keep playing (0)
