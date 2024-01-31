@@ -9,6 +9,10 @@
 # 2024-01-28
 
 
+from random import choice
+from copy import deepcopy
+
+
 BOARD_WIDTH  = 4
 BOARD_HEIGHT = 4
 
@@ -21,10 +25,6 @@ NEW_CELL_WEIGHTS = {        # 2 is 9 times as likely to spawn as 4
 }
 
 GOAL = 2048
-
-
-from random import choice
-from copy import deepcopy
 
 
 board = []
