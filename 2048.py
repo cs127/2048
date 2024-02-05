@@ -6,11 +6,14 @@
 # Mohammad Madannezhad,
 # Sam Riahi
 
-# 2024-01-28
+# 2024-02-06
 
 
 from random import choice
 from copy import deepcopy
+import os
+
+from getch import getch
 
 
 BOARD_WIDTH  = 4
@@ -36,6 +39,15 @@ for row in range(BOARD_HEIGHT):
 random_numbers = []
 for entry in NEW_CELL_WEIGHTS:
     random_numbers += [entry] * NEW_CELL_WEIGHTS[entry]
+
+
+def cls():
+
+    if os.name == "nt":
+        os.system("cls")
+
+    else:
+        os.system("clear")
 
 
 def move(cells):
@@ -227,6 +239,8 @@ def game_start():
 
 def game_loop():
 
+    cls()
+
     print("")
     print_board()
     print("SCORE: " + str(score))
@@ -234,27 +248,27 @@ def game_loop():
 
     handle_state(get_state())
 
-    print("enter a command:")
-    print("L (LEFT) / R (RIGHT) / U (UP) / D (DOWN) / Q (QUIT)")
+    print("press a key:")
+    print("UP:[W]/[K] | DOWN:[S]/[J] | LEFT:[A]/[H] | RIGHT:[D]/[L] | QUIT:[Q]")
     print("")
 
     previous_board = deepcopy(board)
 
-    cmd = (input(":").upper() + " ")[0]
+    cmd = getch().upper()
 
-    if cmd == "Q":
+    if cmd == "Q" or ord(cmd) == 3 or ord(cmd) == 4:
         exit()
 
-    elif cmd == "U":
+    elif cmd == "W" or cmd == "K":
         swipe(0)
 
-    elif cmd == "D":
+    elif cmd == "S" or cmd == "J":
         swipe(1)
 
-    elif cmd == "L":
+    elif cmd == "A" or cmd == "H":
         swipe(2)
 
-    elif cmd == "R":
+    elif cmd == "D" or cmd == "L":
         swipe(3)
 
     # make sure the move resulted in a change before adding new cells
